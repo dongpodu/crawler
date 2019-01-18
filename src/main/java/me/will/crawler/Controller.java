@@ -19,21 +19,6 @@ public class Controller {
     }
 
 
-    public static void test() throws Exception{
-        String url="https://m.zhipin.com/job_detail?city=101020100&source=10&query=风控";
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.addHeader("User-Agent","Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/64.0.3282.112 Mobile/15G77 Safari/604.1");
-        HttpResponse response = httpClient.execute(httpGet);
-        BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        String str, wholeStr = "";
-        while((str = br.readLine()) != null){
-            wholeStr += str;
-        }
-        httpClient.close();
-        System.out.println(wholeStr);
-    }
-
     public static void test1() throws Exception {
         String crawStorageFolder="d:/crawler";
         int numberOfCrawlers=1;

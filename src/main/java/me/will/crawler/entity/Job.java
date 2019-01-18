@@ -28,7 +28,7 @@ public class Job implements Serializable {
         /**
      * 工作名
      */
-         private String jobName;
+         private String title;
 
         /**
      * 公司名
