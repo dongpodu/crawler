@@ -1,11 +1,11 @@
 package test;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import jdk.nashorn.internal.scripts.JO;
 import lombok.extern.slf4j.Slf4j;
 import me.will.crawler.BossCrawler;
 import me.will.crawler.entity.Job;
 import me.will.crawler.mapper.JobMapper;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,9 +43,11 @@ public class InitServiceTest extends BaseTest {
         BossCrawler bossCrawler = new BossCrawler();
         for(Job job:list){
             String jobDemand = bossCrawler.getJobDemand(job.getDetailUrl());
-            update.setId(job.getId());
-            update.setJobDescription(jobDemand);
-            jobMapper.updateById(update);
+            if(StringUtils.isNotBlank(jobDemand)){
+                update.setId(job.getId());
+                update.setJobDescription(jobDemand);
+                jobMapper.updateById(update);
+            }
         }
     }
 
