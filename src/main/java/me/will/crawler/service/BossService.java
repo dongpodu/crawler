@@ -10,6 +10,7 @@ import me.will.crawler.param.PageJobParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 @Service
 public class BossService {
@@ -17,11 +18,15 @@ public class BossService {
     private JobMapper jobMapper;
 
     public PageDto<Job> page(PageJobParam param){
+        LambdaQueryWrapper<Job> query = new LambdaQueryWrapper<Job>()
+                .orderByDesc(Job::getCompanyName);
+        if(!StringUtils.isEmpty(param.getCompanyName())){
+            query.like(Job::getCompanyName,param.getCompanyName());
+        }
+
         IPage<Job> jobPage = jobMapper.selectPage(
                 new Page<>(param.getPageNum(), param.getPageSize()),
-                new LambdaQueryWrapper<Job>()
-                        .like(Job::getCompanyName,param.getCompanyName())
-                        .orderByDesc(Job::getCompanyName)
+                query
         );
 
         if (CollectionUtils.isEmpty(jobPage.getRecords())) {
