@@ -19,6 +19,10 @@ public class InitServiceTest extends BaseTest {
     @Autowired
     private JobMapper jobMapper;
 
+    /**
+     * 拉取列表
+     * @throws Exception
+     */
     @Test
     public void test() throws Exception {
         BossCrawler bossCrawler = new BossCrawler();
@@ -32,6 +36,10 @@ public class InitServiceTest extends BaseTest {
         }
     }
 
+    /**
+     * 拉取详情
+     * @throws Exception
+     */
     @Test
     public void test1() throws Exception {
         List<Job> list = jobMapper.selectList(
@@ -43,6 +51,7 @@ public class InitServiceTest extends BaseTest {
         BossCrawler bossCrawler = new BossCrawler();
         for(Job job:list){
             String jobDemand = bossCrawler.getJobDemand(job.getDetailUrl());
+            Thread.sleep(2000);
             if(StringUtils.isNotBlank(jobDemand)){
                 update.setId(job.getId());
                 update.setJobDescription(jobDemand);
