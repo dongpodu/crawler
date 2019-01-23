@@ -27,10 +27,15 @@ public class InitServiceTest extends BaseTest {
     public void test() throws Exception {
         BossCrawler bossCrawler = new BossCrawler();
         int pageStart=1;
-        for(int page=1;page<10;page++){
+        for(int page=1;page<20;page++){
+            Thread.sleep(2000);
             List<Job> jobList = bossCrawler.getJobList(pageStart,pageStart+9,"风控");
             jobList.forEach(r ->{
-                jobMapper.insert(r);
+                try {
+                    jobMapper.insert(r);
+                }catch (Exception e){
+
+                }
             });
             pageStart = pageStart+10;
         }

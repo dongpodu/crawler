@@ -19,7 +19,9 @@ public class BossService {
     public PageDto<Job> page(PageJobParam param){
         IPage<Job> jobPage = jobMapper.selectPage(
                 new Page<>(param.getPageNum(), param.getPageSize()),
-                new LambdaQueryWrapper<Job>().orderByDesc(Job::getCompanyName)
+                new LambdaQueryWrapper<Job>()
+                        .like(Job::getCompanyName,param.getCompanyName())
+                        .orderByDesc(Job::getCompanyName)
         );
 
         if (CollectionUtils.isEmpty(jobPage.getRecords())) {

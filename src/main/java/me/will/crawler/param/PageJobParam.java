@@ -7,4 +7,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class PageJobParam extends PageParam {
+    private String companyName;
 }

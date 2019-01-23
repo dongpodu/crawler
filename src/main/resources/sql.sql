@@ -1,0 +1,14 @@
+CREATE TABLE `job` (
+	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(100) NULL DEFAULT NULL,
+	`company_name` VARCHAR(100) NULL DEFAULT NULL,
+	`detail_url` VARCHAR(100) NULL DEFAULT NULL,
+	`job_description` VARCHAR(5000) NULL DEFAULT NULL,
+	`salary` VARCHAR(100) NULL DEFAULT NULL,
+	`tag` VARCHAR(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `detail_url` (`detail_url`)
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;
