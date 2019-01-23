@@ -26,10 +26,9 @@ public class InitServiceTest extends BaseTest {
     @Test
     public void test() throws Exception {
         BossCrawler bossCrawler = new BossCrawler();
-        int pageStart=1;
-        for(int page=20;page<100;page++){
+        for(int page=100;page<200;){
             Thread.sleep(2000);
-            List<Job> jobList = bossCrawler.getJobList(pageStart,pageStart+9,"风控");
+            List<Job> jobList = bossCrawler.getJobList(page,page+9,"风控");
             jobList.forEach(r ->{
                 try {
                     jobMapper.insert(r);
@@ -37,7 +36,7 @@ public class InitServiceTest extends BaseTest {
 
                 }
             });
-            pageStart = pageStart+10;
+            page = page+10;
         }
     }
 
