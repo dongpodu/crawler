@@ -55,5 +55,7 @@ public class Job implements Serializable {
      */
          private String tag;
 
+         private Integer type;
+
 
 }

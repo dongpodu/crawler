@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import me.will.crawler.BossCrawler;
 import me.will.crawler.entity.Job;
+import me.will.crawler.enums.JobTypeEnum;
 import me.will.crawler.mapper.JobMapper;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -26,11 +27,12 @@ public class InitServiceTest extends BaseTest {
     @Test
     public void test() throws Exception {
         BossCrawler bossCrawler = new BossCrawler();
-        for(int page=100;page<200;){
+        for(int page=1;page<400;){
             Thread.sleep(2000);
-            List<Job> jobList = bossCrawler.getJobList(page,page+9,"风控");
+            List<Job> jobList = bossCrawler.getJobList(page,page+9,"java");
             jobList.forEach(r ->{
                 try {
+                    r.setType(JobTypeEnum.java.getCode());
                     jobMapper.insert(r);
                 }catch (Exception e){
 
@@ -48,6 +50,7 @@ public class InitServiceTest extends BaseTest {
     public void test1() throws Exception {
         List<Job> list = jobMapper.selectList(
                 new LambdaQueryWrapper<Job>()
+                        .eq(Job::getType,JobTypeEnum.java.getCode())
                 .isNull(Job::getJobDescription)
         );
 
